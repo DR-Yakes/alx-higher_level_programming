@@ -1,2 +1,1 @@
-# alx-higher_level_programming
-Repository containing the higher-level programming languages taught by ALX
+project repository on high-level programming languages
