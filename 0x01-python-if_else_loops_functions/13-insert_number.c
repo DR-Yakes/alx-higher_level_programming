@@ -14,7 +14,7 @@ typedef struct listint_s {
  */
 listint_t *insert_node(listint_t **head, int number)
 {
-    listint_t *new_node, *current;
+    listint_t *new_node, *current, *prev;
 
     /* allocate memory for the new node */
     new_node = malloc(sizeof(listint_t));
@@ -31,14 +31,24 @@ listint_t *insert_node(listint_t **head, int number)
         return new_node;
     }
 
+    /* if the new node should be inserted at the head, insert it there */
+    if (number < (*head)->n) {
+        new_node->next = *head;
+        *head = new_node;
+        return new_node;
+    }
+
     /* traverse the list to find the correct position to insert the new node */
     current = *head;
-    while (current->next != NULL && current->next->n < number)
+    prev = NULL;
+    while (current != NULL && current->n < number) {
+        prev = current;
         current = current->next;
+    }
 
     /* insert the new node into the list */
-    new_node->next = current->next;
-    current->next = new_node;
+    new_node->next = current;
+    prev->next = new_node;
 
     return new_node;
 }
